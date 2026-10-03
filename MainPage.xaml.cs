@@ -27,111 +27,85 @@ public partial class MainPage : ContentPage
         object sender,
         EventArgs e)
     {
-        // VALIDAR NOMBRE
-
-        if (string.IsNullOrWhiteSpace(NombreEntry.Text))
+        // Validar número de cuenta
+        if (string.IsNullOrWhiteSpace(NumeroCuentaEntry.Text))
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese el nombre del estudiante.",
-                "Aceptar");
-
+            await DisplayAlert("Error", "Ingrese el número de cuenta.", "Aceptar");
             return;
         }
 
-        // VALIDAR APELLIDO
-
-        if (string.IsNullOrWhiteSpace(ApellidoEntry.Text))
+        // Validar nombre completo
+        if (string.IsNullOrWhiteSpace(NombreCompletoEntry.Text))
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese el apellido del estudiante.",
-                "Aceptar");
-
+            await DisplayAlert("Error", "Ingrese el nombre completo del estudiante.", "Aceptar");
             return;
         }
 
-        // VALIDAR EDAD
-
+        // Validar edad
         if (!int.TryParse(
                 EdadEntry.Text,
                 out int edad) || edad <= 0)
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese una edad válida.",
-                "Aceptar");
-
+            await DisplayAlert( "Error", "Ingrese una edad válida.", "Aceptar");
             return;
         }
 
-        // VALIDAR SEXO
-
+        // Validar sexo
         if (SexoPicker.SelectedIndex == -1)
         {
             await DisplayAlert(
                 "Error",
                 "Seleccione el sexo del estudiante.",
                 "Aceptar");
-
             return;
         }
 
-        // VALIDAR CORREO
-
+        // Validar correo
         if (string.IsNullOrWhiteSpace(CorreoEntry.Text))
         {
             await DisplayAlert(
                 "Error",
                 "Ingrese el correo electrónico.",
                 "Aceptar");
-
             return;
         }
 
-        // VALIDAR TELEFONO
-
+        // Validar teléfono
         if (string.IsNullOrWhiteSpace(TelefonoEntry.Text))
         {
             await DisplayAlert(
                 "Error",
                 "Ingrese el teléfono.",
                 "Aceptar");
-
             return;
         }
 
-        // VALIDAR DIRECCION
-
+        // Validar dirección
         if (string.IsNullOrWhiteSpace(DireccionEntry.Text))
         {
             await DisplayAlert(
                 "Error",
                 "Ingrese la dirección.",
                 "Aceptar");
-
             return;
         }
 
-        // VALIDAR CARRERA
-
+        // Validar carrera
         if (CarreraPicker.SelectedIndex == -1)
         {
             await DisplayAlert(
                 "Error",
                 "Seleccione la carrera.",
                 "Aceptar");
-
             return;
         }
 
-        // CREAR OBJETO ESTUDIANTE
-
+        // Crear estudiante
         Estudiante estudiante = new Estudiante
         {
-            Nombre = NombreEntry.Text.Trim(),
+            NumeroCuenta = NumeroCuentaEntry.Text.Trim(),
 
-            Apellido = ApellidoEntry.Text.Trim(),
+            NombreCompleto = NombreCompletoEntry.Text.Trim(),
 
             Edad = edad,
 
@@ -150,23 +124,19 @@ public partial class MainPage : ContentPage
             FechaRegistro = FechaRegistroPicker.Date ?? DateTime.Today,
         };
 
-        // GUARDAR EN SQLITE
-
+        // Guardar en SQLite
         await _databaseService.GuardarEstudianteAsync(
             estudiante);
-
-        // MOSTRAR CONFIRMACIÓN
 
         await DisplayAlert(
             "Registro exitoso",
             $"El estudiante se guardó correctamente.\nID generado: {estudiante.ID}",
             "Aceptar");
 
-        // LIMPIAR CAMPOS
+        // Limpiar formulario
+        NumeroCuentaEntry.Text = string.Empty;
 
-        NombreEntry.Text = string.Empty;
-
-        ApellidoEntry.Text = string.Empty;
+        NombreCompletoEntry.Text = string.Empty;
 
         EdadEntry.Text = string.Empty;
 

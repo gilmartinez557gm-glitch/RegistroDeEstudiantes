@@ -16,23 +16,18 @@
                    HorizontalOptions="Center"
                    Margin="0,0,0,15" />
 
-            <!-- NOMBRE -->
+            <Label Text="Número de cuenta"
+                     FontAttributes="Bold" />
 
-            <Label Text="Nombre"
-                   FontAttributes="Bold" />
+            <Entry x:Name="NumeroCuentaEntry"
+                 Placeholder="Ingrese el número de cuenta"
+                Keyboard="Numeric" />
 
-            <Entry x:Name="NombreEntry"
-                   Placeholder="Ingrese el nombre" />
+            <Label Text="Nombre completo"
+                FontAttributes="Bold" />
 
-            <!-- APELLIDO -->
-
-            <Label Text="Apellido"
-                   FontAttributes="Bold" />
-
-            <Entry x:Name="ApellidoEntry"
-                   Placeholder="Ingrese el apellido" />
-
-            <!-- EDAD -->
+            <Entry x:Name="NombreCompletoEntry"
+                Placeholder="Ingrese el nombre completo" />
 
             <Label Text="Edad"
                    FontAttributes="Bold" />
@@ -41,7 +36,7 @@
                    Placeholder="Ingrese la edad"
                    Keyboard="Numeric" />
 
-            <!-- SEXO -->
+         
 
             <Label Text="Sexo"
                    FontAttributes="Bold" />
@@ -56,8 +51,7 @@
 
             </Picker>
 
-            <!-- CORREO -->
-
+          
             <Label Text="Correo electrónico"
                    FontAttributes="Bold" />
 
@@ -65,7 +59,7 @@
                    Placeholder="Ingrese el correo electrónico"
                    Keyboard="Email" />
 
-            <!-- TELEFONO -->
+       
 
             <Label Text="Teléfono"
                    FontAttributes="Bold" />
@@ -74,16 +68,14 @@
                    Placeholder="Ingrese el teléfono"
                    Keyboard="Telephone" />
 
-            <!-- DIRECCION -->
-
+         
             <Label Text="Dirección"
                    FontAttributes="Bold" />
 
             <Entry x:Name="DireccionEntry"
                    Placeholder="Ingrese la dirección" />
 
-            <!-- CARRERA -->
-
+      
             <Label Text="Carrera"
                    FontAttributes="Bold" />
 
@@ -100,20 +92,19 @@
 
             </Picker>
 
-            <!-- FECHA DE REGISTRO -->
 
             <Label Text="Fecha de registro"
                    FontAttributes="Bold" />
 
             <DatePicker x:Name="FechaRegistroPicker" />
 
-            <!-- GUARDAR -->
+      
 
             <Button Text="Guardar Estudiante"
                     Clicked="OnGuardarEstudianteClicked"
                     Margin="0,15,0,0" />
 
-            <!-- VER REGISTRADOS -->
+           
 
             <Button Text="Ver Estudiantes Registrados"
                     Clicked="OnVerEstudiantesClicked"

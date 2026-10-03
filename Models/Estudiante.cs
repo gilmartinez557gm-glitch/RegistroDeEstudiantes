@@ -7,9 +7,9 @@ public class Estudiante
     [PrimaryKey, AutoIncrement]
     public int ID { get; set; }
 
-    public string Nombre { get; set; } = string.Empty;
+    public string NumeroCuenta { get; set; } = string.Empty;
 
-    public string Apellido { get; set; } = string.Empty;
+    public string NombreCompleto { get; set; } = string.Empty;
 
     public int Edad { get; set; }
 

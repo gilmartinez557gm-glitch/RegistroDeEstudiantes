@@ -27,6 +27,15 @@ public class DatabaseService
         return await _database.InsertAsync(estudiante);
     }
 
+    public async Task<Estudiante?> ObtenerPorNumeroCuentaAsync(
+        string numeroCuenta)
+    {
+        return await _database
+            .Table<Estudiante>()
+            .Where(e => e.NumeroCuenta == numeroCuenta)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<List<Estudiante>> ObtenerEstudiantesAsync()
     {
         return await _database
