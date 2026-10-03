@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroDeEstudiantes.Views.EstudiantesPage"
+             Title="Estudiantes Registrados">
+
+    <VerticalStackLayout Padding="20"
+                         Spacing="10">
+
+        <Label Text="ESTUDIANTES REGISTRADOS"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <CollectionView x:Name="EstudiantesCollectionView">
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                    <Label Text="No hay estudiantes registrados."
+                           FontSize="16"
+                           HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Frame Padding="15"
+                           Margin="0,5"
+                           BorderColor="LightGray"
+                           CornerRadius="10">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="{Binding ID, StringFormat='ID: {0}'}"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                Text="{Binding Nombre, StringFormat='Nombre: {0}'}" />
+
+                            <Label
+                                Text="{Binding Apellido, StringFormat='Apellido: {0}'}" />
+
+                            <Label
+                                Text="{Binding Edad, StringFormat='Edad: {0}'}" />
+
+                            <Label
+                                Text="{Binding Sexo, StringFormat='Sexo: {0}'}" />
+
+                            <Label
+                                Text="{Binding Correo, StringFormat='Correo: {0}'}" />
+
+                            <Label
+                                Text="{Binding Telefono, StringFormat='Teléfono: {0}'}" />
+
+                            <Label
+                                Text="{Binding Direccion, StringFormat='Dirección: {0}'}" />
+
+                            <Label
+                                Text="{Binding Carrera, StringFormat='Carrera: {0}'}" />
+
+                            <Label
+                                Text="{Binding FechaRegistro,
+                                StringFormat='Fecha de registro: {0:dd/MM/yyyy}'}" />
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>
