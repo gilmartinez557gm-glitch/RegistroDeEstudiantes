@@ -34,6 +34,20 @@ public partial class MainPage : ContentPage
             return;
         }
 
+        string numeroCuenta = NumeroCuentaEntry.Text.Trim();
+
+        var estudianteExistente =
+            await _databaseService.ObtenerPorNumeroCuentaAsync(numeroCuenta);
+
+        if (estudianteExistente != null)
+        {
+            await DisplayAlert(
+                "Número de cuenta duplicado",
+                "Ya existe un estudiante registrado con este número de cuenta.",
+                "Aceptar");
+            return;
+        }
+
         // Validar nombre completo
         if (string.IsNullOrWhiteSpace(NombreCompletoEntry.Text))
         {
@@ -66,6 +80,16 @@ public partial class MainPage : ContentPage
             await DisplayAlert(
                 "Error",
                 "Ingrese el correo electrónico.",
+                "Aceptar");
+            return;
+        }
+
+        if (!CorreoEntry.Text.Contains("@") ||
+    !CorreoEntry.Text.Contains("."))
+        {
+            await DisplayAlert(
+                "Error",
+                "Ingrese un correo electrónico válido.",
                 "Aceptar");
             return;
         }
@@ -160,4 +184,5 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(
             new Views.EstudiantesPage());
     }
+
 }

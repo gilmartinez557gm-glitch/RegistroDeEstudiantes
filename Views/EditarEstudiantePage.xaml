@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroDeEstudiantes.Views.EditarEstudiantePage"
+             Title="Editar Estudiante">
+
+    <ScrollView>
+
+        <VerticalStackLayout Padding="30"
+                             Spacing="10">
+
+            <Label Text="EDITAR ESTUDIANTE"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,15" />
+
+            <Label Text="Número de cuenta"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="NumeroCuentaEntry"
+                   Placeholder="Ingrese el número de cuenta"
+                   Keyboard="Numeric" />
+
+            <Label Text="Nombre completo"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="NombreCompletoEntry"
+                   Placeholder="Ingrese el nombre completo" />
+
+            <Label Text="Edad"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="EdadEntry"
+                   Placeholder="Ingrese la edad"
+                   Keyboard="Numeric" />
+
+            <Label Text="Sexo"
+                   FontAttributes="Bold" />
+
+            <Picker x:Name="SexoPicker"
+                    Title="Seleccione el sexo">
+
+                <Picker.Items>
+                    <x:String>Masculino</x:String>
+                    <x:String>Femenino</x:String>
+                </Picker.Items>
+
+            </Picker>
+
+            <Label Text="Correo electrónico"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="CorreoEntry"
+                   Placeholder="Ingrese el correo electrónico"
+                   Keyboard="Email" />
+
+            <Label Text="Teléfono"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="TelefonoEntry"
+                   Placeholder="Ingrese el teléfono"
+                   Keyboard="Telephone" />
+
+            <Label Text="Dirección"
+                   FontAttributes="Bold" />
+
+            <Entry x:Name="DireccionEntry"
+                   Placeholder="Ingrese la dirección" />
+
+            <Label Text="Carrera"
+                   FontAttributes="Bold" />
+
+            <Picker x:Name="CarreraPicker"
+                    Title="Seleccione la carrera">
+
+                <Picker.Items>
+                    <x:String>Ingeniería en Sistemas Computacionales</x:String>
+                    <x:String>Administración de Empresas</x:String>
+                    <x:String>Psicología</x:String>
+                    <x:String>Derecho</x:String>
+                    <x:String>Mercadotecnia</x:String>
+                </Picker.Items>
+
+            </Picker>
+
+            <Label Text="Fecha de registro"
+                   FontAttributes="Bold" />
+
+            <DatePicker x:Name="FechaRegistroPicker" />
+
+            <Button Text="Guardar cambios"
+                    Clicked="OnGuardarCambiosClicked"
+                    Margin="0,15,0,0" />
+
+            <Button Text="Cancelar"
+                    Clicked="OnCancelarClicked"
+                    Margin="0,5,0,0" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

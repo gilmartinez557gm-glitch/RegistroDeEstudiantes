@@ -42,4 +42,12 @@ public class DatabaseService
             .Table<Estudiante>()
             .ToListAsync();
     }
+    public async Task<int> EliminarEstudianteAsync(Estudiante estudiante)
+    {
+        return await _database.DeleteAsync(estudiante);
+    }
+    public async Task<int> ActualizarEstudianteAsync(Estudiante estudiante)
+    {
+        return await _database.UpdateAsync(estudiante);
+    }
 }
