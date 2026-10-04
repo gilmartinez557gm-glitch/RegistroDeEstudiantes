@@ -88,6 +88,7 @@
                     <x:String>Psicología</x:String>
                     <x:String>Derecho</x:String>
                     <x:String>Mercadotecnia</x:String>
+                    <x:String>Laboratorio Clínico</x:String>
                 </Picker.Items>
 
             </Picker>

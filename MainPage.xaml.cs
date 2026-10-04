@@ -27,10 +27,10 @@ public partial class MainPage : ContentPage
         object sender,
         EventArgs e)
     {
-        // Validar número de cuenta
+        // Validar número de cuenta de Estudiante
         if (string.IsNullOrWhiteSpace(NumeroCuentaEntry.Text))
         {
-            await DisplayAlert("Error", "Ingrese el número de cuenta.", "Aceptar");
+            await DisplayAlert("Error", "Ingrese el número de cuenta.", "OK");
             return;
         }
 
@@ -42,16 +42,16 @@ public partial class MainPage : ContentPage
         if (estudianteExistente != null)
         {
             await DisplayAlert(
-                "Número de cuenta duplicado",
+                "Número de cuenta ya Existe",
                 "Ya existe un estudiante registrado con este número de cuenta.",
-                "Aceptar");
+                "OK");
             return;
         }
 
         // Validar nombre completo
         if (string.IsNullOrWhiteSpace(NombreCompletoEntry.Text))
         {
-            await DisplayAlert("Error", "Ingrese el nombre completo del estudiante.", "Aceptar");
+            await DisplayAlert("Error", "Ingrese el nombre completo del estudiante.", "OK");
             return;
         }
 
@@ -60,7 +60,7 @@ public partial class MainPage : ContentPage
                 EdadEntry.Text,
                 out int edad) || edad <= 0)
         {
-            await DisplayAlert( "Error", "Ingrese una edad válida.", "Aceptar");
+            await DisplayAlert( "Error", "Ingrese una edad válida.", "OK");
             return;
         }
 
@@ -90,7 +90,7 @@ public partial class MainPage : ContentPage
             await DisplayAlert(
                 "Error",
                 "Ingrese un correo electrónico válido.",
-                "Aceptar");
+                "OK");
             return;
         }
 
@@ -100,7 +100,7 @@ public partial class MainPage : ContentPage
             await DisplayAlert(
                 "Error",
                 "Ingrese el teléfono.",
-                "Aceptar");
+                "OK");
             return;
         }
 
@@ -110,7 +110,7 @@ public partial class MainPage : ContentPage
             await DisplayAlert(
                 "Error",
                 "Ingrese la dirección.",
-                "Aceptar");
+                "OK");
             return;
         }
 
@@ -120,7 +120,7 @@ public partial class MainPage : ContentPage
             await DisplayAlert(
                 "Error",
                 "Seleccione la carrera.",
-                "Aceptar");
+                "OK");
             return;
         }
 

@@ -10,7 +10,7 @@
         <VerticalStackLayout Padding="30"
                              Spacing="10">
 
-            <Label Text="EDITAR ESTUDIANTE"
+            <Label Text="Editar Estudiante"
                    FontSize="28"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
