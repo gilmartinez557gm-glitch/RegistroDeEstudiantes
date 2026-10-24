@@ -21,11 +21,19 @@
                 HorizontalTextAlignment="Center"
                 Margin="0,0,0,10" />
 
+
             <HorizontalStackLayout
                 Spacing="12"
                 Padding="0,5"
                 HorizontalOptions="End"
                 VerticalOptions="Center">
+
+            <Label Text="REGISTRO  de ESTUDIANTES"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,15" />
+
 
                 <Label
                     Text="Modo oscuro"
