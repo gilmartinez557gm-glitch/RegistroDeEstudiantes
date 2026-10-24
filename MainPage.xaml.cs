@@ -1,188 +1,216 @@
-﻿using RegistroDeEstudiantes.Data;
-using RegistroDeEstudiantes.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
 
 namespace RegistroDeEstudiantes;
 
 public partial class MainPage : ContentPage
 {
-    private readonly DatabaseService _databaseService;
+    private readonly List<Estudiante> estudiantes = new();
 
     public MainPage()
     {
         InitializeComponent();
-
-        _databaseService = new DatabaseService();
-
-        FechaRegistroPicker.Date = DateTime.Today;
     }
 
-    protected override async void OnAppearing()
+    public class Estudiante
     {
-        base.OnAppearing();
-
-        await _databaseService.InitializeAsync();
+        public string NumeroCuenta { get; set; } = "";
+        public string Nombre { get; set; } = "";
+        public int Edad { get; set; }
+        public string Sexo { get; set; } = "";
+        public string Correo { get; set; } = "";
+        public string Telefono { get; set; } = "";
+        public string Direccion { get; set; } = "";
+        public string Carrera { get; set; } = "";
+        public DateTime FechaRegistro { get; set; }
     }
 
-    private async void OnGuardarEstudianteClicked(
-        object sender,
-        EventArgs e)
+    private void OnTemaToggled(object? sender, ToggledEventArgs e)
     {
-        // Validar número de cuenta de Estudiante
-        if (string.IsNullOrWhiteSpace(NumeroCuentaEntry.Text))
+        Application.Current.UserAppTheme =
+            e.Value ? AppTheme.Dark : AppTheme.Light;
+    }
+
+    private async void OnGuardarEstudianteClicked(object? sender, EventArgs e)
+    {
+        List<string> errores = new();
+
+        string numeroCuenta = NumeroCuentaEntry.Text?.Trim() ?? "";
+        string nombre = NombreCompletoEntry.Text?.Trim() ?? "";
+        string edadTexto = EdadEntry.Text?.Trim() ?? "";
+        string correo = CorreoEntry.Text?.Trim() ?? "";
+        string telefono = TelefonoEntry.Text?.Trim() ?? "";
+        string direccion = DireccionEntry.Text?.Trim() ?? "";
+
+        // Número de cuenta
+        if (string.IsNullOrWhiteSpace(numeroCuenta))
         {
-            await DisplayAlert("Error", "Ingrese el número de cuenta.", "OK");
-            return;
+            errores.Add("Ingrese el número de cuenta.");
         }
 
-        string numeroCuenta = NumeroCuentaEntry.Text.Trim();
-
-        var estudianteExistente =
-            await _databaseService.ObtenerPorNumeroCuentaAsync(numeroCuenta);
-
-        if (estudianteExistente != null)
+        // Nombre completo
+        if (string.IsNullOrWhiteSpace(nombre))
         {
-            await DisplayAlert(
-                "Número de cuenta ya Existe",
-                "Ya existe un estudiante registrado con este número de cuenta.",
-                "OK");
-            return;
+            errores.Add("Ingrese el nombre completo.");
+        }
+        else if (nombre.Length < 3)
+        {
+            errores.Add("El nombre debe tener al menos 3 caracteres.");
         }
 
-        // Validar nombre completo
-        if (string.IsNullOrWhiteSpace(NombreCompletoEntry.Text))
+        // Edad
+        if (string.IsNullOrWhiteSpace(edadTexto))
         {
-            await DisplayAlert("Error", "Ingrese el nombre completo del estudiante.", "OK");
-            return;
+            errores.Add("Ingrese la edad.");
+        }
+        else if (!int.TryParse(edadTexto, out int edad))
+        {
+            errores.Add("La edad debe ser un número entero.");
+        }
+        else if (edad < 16 || edad > 100)
+        {
+            errores.Add("La edad debe estar entre 16 y 100 años.");
         }
 
-        // Validar edad
-        if (!int.TryParse(
-                EdadEntry.Text,
-                out int edad) || edad <= 0)
-        {
-            await DisplayAlert( "Error", "Ingrese una edad válida.", "OK");
-            return;
-        }
-
-        // Validar sexo
+        // Sexo
         if (SexoPicker.SelectedIndex == -1)
         {
-            await DisplayAlert(
-                "Error",
-                "Seleccione el sexo del estudiante.",
-                "Aceptar");
-            return;
+            errores.Add("Seleccione el sexo.");
         }
 
-        // Validar correo
-        if (string.IsNullOrWhiteSpace(CorreoEntry.Text))
+        // Correo electrónico
+        if (string.IsNullOrWhiteSpace(correo))
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese el correo electrónico.",
-                "Aceptar");
-            return;
+            errores.Add("Ingrese el correo electrónico.");
         }
-
-        if (!CorreoEntry.Text.Contains("@") ||
-    !CorreoEntry.Text.Contains("."))
+        else
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese un correo electrónico válido.",
-                "OK");
-            return;
+            try
+            {
+                var direccionCorreo = new MailAddress(correo);
+
+                if (direccionCorreo.Address != correo)
+                {
+                    errores.Add("Ingrese un correo electrónico válido.");
+                }
+            }
+            catch (FormatException)
+            {
+                errores.Add("Ingrese un correo electrónico válido.");
+            }
         }
 
-        // Validar teléfono
-        if (string.IsNullOrWhiteSpace(TelefonoEntry.Text))
+        // Teléfono
+        string telefonoNumerico =
+            new string(telefono.Where(char.IsDigit).ToArray());
+
+        if (string.IsNullOrWhiteSpace(telefono))
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese el teléfono.",
-                "OK");
-            return;
+            errores.Add("Ingrese el teléfono.");
         }
-
-        // Validar dirección
-        if (string.IsNullOrWhiteSpace(DireccionEntry.Text))
+        else if (telefonoNumerico.Length < 8)
         {
-            await DisplayAlert(
-                "Error",
-                "Ingrese la dirección.",
-                "OK");
-            return;
+            errores.Add("El teléfono debe contener al menos 8 dígitos.");
         }
 
-        // Validar carrera
+        // Carrera
         if (CarreraPicker.SelectedIndex == -1)
         {
-            await DisplayAlert(
-                "Error",
-                "Seleccione la carrera.",
-                "OK");
+            errores.Add("Seleccione una carrera.");
+        }
+
+        // Mostrar errores en pantalla
+        if (errores.Count > 0)
+        {
+            ErroresLabel.Text =
+                "Por favor, corrija los siguientes errores:\n• "
+                + string.Join("\n• ", errores);
+
+            ErroresLabel.IsVisible = true;
             return;
         }
 
-        // Crear estudiante
-        Estudiante estudiante = new Estudiante
+        // Ocultar errores si todo es válido
+        ErroresLabel.Text = "";
+        ErroresLabel.IsVisible = false;
+
+        // Crear el objeto del estudiante
+        var estudiante = new Estudiante
         {
-            NumeroCuenta = NumeroCuentaEntry.Text.Trim(),
-
-            NombreCompleto = NombreCompletoEntry.Text.Trim(),
-
-            Edad = edad,
-
-            Sexo = SexoPicker.SelectedItem?.ToString()
-                   ?? string.Empty,
-
-            Correo = CorreoEntry.Text.Trim(),
-
-            Telefono = TelefonoEntry.Text.Trim(),
-
-            Direccion = DireccionEntry.Text.Trim(),
-
-            Carrera = CarreraPicker.SelectedItem?.ToString()
-                      ?? string.Empty,
-
-            FechaRegistro = FechaRegistroPicker.Date ?? DateTime.Today,
+            NumeroCuenta = numeroCuenta,
+            Nombre = nombre,
+            Edad = int.Parse(edadTexto),
+            Sexo = SexoPicker.SelectedItem.ToString(),
+            Correo = correo,
+            Telefono = telefono,
+            Direccion = direccion,
+            Carrera = CarreraPicker.SelectedItem.ToString(),
+            FechaRegistro = FechaRegistroPicker.Date ?? DateTime.Today
         };
 
-        // Guardar en SQLite
-        await _databaseService.GuardarEstudianteAsync(
-            estudiante);
+        // Evitar números de cuenta duplicados
+        if (estudiantes.Any(e =>
+            e.NumeroCuenta.Equals(
+                numeroCuenta,
+                StringComparison.OrdinalIgnoreCase)))
+        {
+            ErroresLabel.Text = "Ya existe un estudiante con ese número de cuenta.";
+            ErroresLabel.IsVisible = true;
+            return;
+        }
 
-        await DisplayAlert(
-            "Registro exitoso",
-            $"El estudiante se guardó correctamente.\nID generado: {estudiante.ID}",
-            "Aceptar");
+        // Guardar en la lista
+        estudiantes.Add(estudiante);
+        // Resumen de los datos
+        string resumen =
+            $"Número de cuenta: {numeroCuenta}\n" +
+            $"Nombre: {nombre}\n" +
+            $"Edad: {edadTexto} años\n" +
+            $"Sexo: {SexoPicker.SelectedItem}\n" +
+            $"Correo: {correo}\n" +
+            $"Teléfono: {telefono}\n" +
+            $"Dirección: {(string.IsNullOrWhiteSpace(direccion) ? "No indicada" : direccion)}\n" +
+            $"Carrera: {CarreraPicker.SelectedItem}\n" +
+            $"Fecha de registro: {FechaRegistroPicker.Date:dd/MM/yyyy}";
 
-        // Limpiar formulario
-        NumeroCuentaEntry.Text = string.Empty;
-
-        NombreCompletoEntry.Text = string.Empty;
-
-        EdadEntry.Text = string.Empty;
-
-        SexoPicker.SelectedIndex = -1;
-
-        CorreoEntry.Text = string.Empty;
-
-        TelefonoEntry.Text = string.Empty;
-
-        DireccionEntry.Text = string.Empty;
-
-        CarreraPicker.SelectedIndex = -1;
-
-        FechaRegistroPicker.Date = DateTime.Today;
+        await DisplayAlertAsync(
+             "Registro de estudiante",
+             resumen,
+              "Aceptar");
     }
 
-    private async void OnVerEstudiantesClicked(
-        object sender,
-        EventArgs e)
+    private async void OnVerEstudiantesClicked(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(
-            new Views.EstudiantesPage());
-    }
+        if (estudiantes.Count == 0)
+        {
+            await DisplayAlertAsync(
+                "Estudiantes registrados",
+                "Todavía no hay estudiantes guardados.",
+                "Aceptar");
 
+            return;
+        }
+
+        string resumen = "";
+
+        foreach (var estudiante in estudiantes)
+        {
+            resumen +=
+                $"Cuenta: {estudiante.NumeroCuenta}\n" +
+                $"Nombre: {estudiante.Nombre}\n" +
+                $"Edad: {estudiante.Edad}\n" +
+                $"Sexo: {estudiante.Sexo}\n" +
+                $"Correo: {estudiante.Correo}\n" +
+                $"Teléfono: {estudiante.Telefono}\n" +
+                $"Carrera: {estudiante.Carrera}\n" +
+                "-------------------------\n";
+        }
+
+        await DisplayAlertAsync(
+            "Estudiantes registrados",
+            resumen,
+            "Cerrar");
+    }
 }

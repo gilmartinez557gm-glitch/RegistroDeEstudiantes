@@ -1,118 +1,181 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RegistroDeEstudiantes.MainPage"
-             Title="Registro de Estudiantes">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RegistroDeEstudiantes.MainPage"
+    Title="Registro de Estudiantes"
+    BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro},
+                                      Dark={StaticResource FondoOscuro}}">
 
     <ScrollView>
+        <VerticalStackLayout
+            Padding="{OnIdiom Phone=20, Tablet=30, Default=20}"
+            Spacing="12">
 
-        <VerticalStackLayout Padding="30"
-                             Spacing="10">
+            <Label
+                Text="Registro de Estudiantes"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Margin="0,0,0,10" />
 
-            <Label Text="Registro de Estudiantes"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,15" />
+            <HorizontalStackLayout
+                Spacing="12"
+                Padding="0,5"
+                HorizontalOptions="End"
+                VerticalOptions="Center">
 
-            <Label Text="Número de cuenta"
-                     FontAttributes="Bold" />
+                <Label
+                    Text="Modo oscuro"
+                    VerticalOptions="Center" />
 
-            <Entry x:Name="NumeroCuentaEntry"
-                 Placeholder="Ingrese el número de cuenta"
-                Keyboard="Numeric" />
+                <Switch
+                    x:Name="TemaSwitch"
+                    IsToggled="False"
+                    Toggled="OnTemaToggled"
+                    OnColor="{StaticResource VerdeExito}"
+                    ThumbColor="{StaticResource AzulPrincipal}" />
+            </HorizontalStackLayout>
 
-            <Label Text="Nombre completo"
-                FontAttributes="Bold" />
+            <Grid
+                ColumnSpacing="20"
+                RowSpacing="12">
 
-            <Entry x:Name="NombreCompletoEntry"
-                Placeholder="Ingrese el nombre completo" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition
+                        Width="{OnIdiom Phone=0, Tablet=*, Default=0}" />
+                </Grid.ColumnDefinitions>
 
-            <Label Text="Edad"
-                   FontAttributes="Bold" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Entry x:Name="EdadEntry"
-                   Placeholder="Ingrese la edad"
-                   Keyboard="Numeric" />
+                <!-- Número de cuenta -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="4">
+                    <Label Text="Número de cuenta" FontAttributes="Bold" />
+                    <Entry x:Name="NumeroCuentaEntry"
+                           Placeholder="Ingrese el número de cuenta"
+                           Keyboard="Numeric" />
+                </VerticalStackLayout>
 
-         
+                <!-- Nombre completo -->
+                <VerticalStackLayout
+                    Grid.Row="{OnIdiom Phone=1, Tablet=0, Default=1}"
+                    Grid.Column="{OnIdiom Phone=0, Tablet=1, Default=0}"
+                    Spacing="4">
+                    <Label Text="Nombre completo" FontAttributes="Bold" />
+                    <Entry x:Name="NombreCompletoEntry"
+                           Placeholder="Ingrese el nombre completo" />
+                </VerticalStackLayout>
 
-            <Label Text="Sexo"
-                   FontAttributes="Bold" />
+                <!-- Edad -->
+                <VerticalStackLayout Grid.Row="2" Grid.Column="0" Spacing="4">
+                    <Label Text="Edad" FontAttributes="Bold" />
+                    <Entry x:Name="EdadEntry"
+                           Placeholder="Ingrese la edad"
+                           Keyboard="Numeric" />
+                </VerticalStackLayout>
 
-            <Picker x:Name="SexoPicker"
-                    Title="Seleccione el sexo">
+                <!-- Sexo -->
+                <VerticalStackLayout
+                    Grid.Row="{OnIdiom Phone=3, Tablet=2, Default=3}"
+                    Grid.Column="{OnIdiom Phone=0, Tablet=1, Default=0}"
+                    Spacing="4">
+                    <Label Text="Sexo" FontAttributes="Bold" />
+                    <Picker x:Name="SexoPicker" Title="Seleccione el sexo">
+                        <Picker.Items>
+                            <x:String>Masculino</x:String>
+                            <x:String>Femenino</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
 
-                <Picker.Items>
-                    <x:String>Masculino</x:String>
-                    <x:String>Femenino</x:String>
-                </Picker.Items>
+                <!-- Correo -->
+                <VerticalStackLayout Grid.Row="4" Grid.Column="0" Spacing="4">
+                    <Label Text="Correo electrónico" FontAttributes="Bold" />
+                    <Entry x:Name="CorreoEntry"
+                           Placeholder="Ingrese el correo electrónico"
+                           Keyboard="Email" />
+                </VerticalStackLayout>
 
-            </Picker>
+                <!-- Teléfono -->
+                <VerticalStackLayout
+                    Grid.Row="{OnIdiom Phone=5, Tablet=4, Default=5}"
+                    Grid.Column="{OnIdiom Phone=0, Tablet=1, Default=0}"
+                    Spacing="4">
+                    <Label Text="Teléfono" FontAttributes="Bold" />
+                    <Entry x:Name="TelefonoEntry"
+                           Placeholder="Ingrese el teléfono"
+                           Keyboard="Telephone" />
+                </VerticalStackLayout>
 
-          
-            <Label Text="Correo electrónico"
-                   FontAttributes="Bold" />
+                <!-- Dirección -->
+                <VerticalStackLayout Grid.Row="6" Grid.Column="0" Spacing="4">
+                    <Label Text="Dirección" FontAttributes="Bold" />
+                    <Entry x:Name="DireccionEntry"
+                           Placeholder="Ingrese la dirección" />
+                </VerticalStackLayout>
 
-            <Entry x:Name="CorreoEntry"
-                   Placeholder="Ingrese el correo electrónico"
-                   Keyboard="Email" />
+                <!-- Carrera -->
+                <VerticalStackLayout
+                    Grid.Row="{OnIdiom Phone=7, Tablet=6, Default=7}"
+                    Grid.Column="{OnIdiom Phone=0, Tablet=1, Default=0}"
+                    Spacing="4">
+                    <Label Text="Carrera" FontAttributes="Bold" />
+                    <Picker x:Name="CarreraPicker" Title="Seleccione la carrera">
+                        <Picker.Items>
+                            <x:String>Ingeniería en Sistemas Computacionales</x:String>
+                            <x:String>Administración de Empresas</x:String>
+                            <x:String>Psicología</x:String>
+                            <x:String>Derecho</x:String>
+                            <x:String>Mercadotecnia</x:String>
+                            <x:String>Laboratorio Clínico</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
 
-       
+                <!-- Fecha de registro -->
+                <VerticalStackLayout
+                    Grid.Row="{OnIdiom Phone=8, Tablet=8, Default=8}"
+                    Grid.Column="0"
+                    Spacing="4">
+                    <Label Text="Fecha de registro" FontAttributes="Bold" />
+                    <DatePicker x:Name="FechaRegistroPicker" />
+                </VerticalStackLayout>
 
-            <Label Text="Teléfono"
-                   FontAttributes="Bold" />
+            </Grid>
 
-            <Entry x:Name="TelefonoEntry"
-                   Placeholder="Ingrese el teléfono"
-                   Keyboard="Telephone" />
+            <Label
+                x:Name="ErroresLabel"
+                Text=""
+                TextColor="Red"
+                FontSize="14"
+                IsVisible="False"
+                LineBreakMode="WordWrap"
+                Margin="0,4,0,8" />
 
-         
-            <Label Text="Dirección"
-                   FontAttributes="Bold" />
+            <Button
+                Text="Guardar Estudiante"
+                Style="{StaticResource BotonPrimario}"
+                Clicked="OnGuardarEstudianteClicked" />
 
-            <Entry x:Name="DireccionEntry"
-                   Placeholder="Ingrese la dirección" />
-
-      
-            <Label Text="Carrera"
-                   FontAttributes="Bold" />
-
-            <Picker x:Name="CarreraPicker"
-                    Title="Seleccione la carrera">
-
-                <Picker.Items>
-                    <x:String>Ingeniería en Sistemas Computacionales</x:String>
-                    <x:String>Administración de Empresas</x:String>
-                    <x:String>Psicología</x:String>
-                    <x:String>Derecho</x:String>
-                    <x:String>Mercadotecnia</x:String>
-                    <x:String>Laboratorio Clínico</x:String>
-                </Picker.Items>
-
-            </Picker>
-
-
-            <Label Text="Fecha de registro"
-                   FontAttributes="Bold" />
-
-            <DatePicker x:Name="FechaRegistroPicker" />
-
-      
-
-            <Button Text="Guardar Estudiante"
-                    Clicked="OnGuardarEstudianteClicked"
-                    Margin="0,15,0,0" />
-
-           
-
-            <Button Text="Ver Estudiantes Registrados"
-                    Clicked="OnVerEstudiantesClicked"
-                    Margin="0,5,0,0" />
+            <Button
+                Text="Ver Estudiantes Registrados"
+                Style="{StaticResource BotonSecundario}"
+                Clicked="OnVerEstudiantesClicked"
+                Margin="0,5,0,0" />
 
         </VerticalStackLayout>
-
     </ScrollView>
-
 </ContentPage>

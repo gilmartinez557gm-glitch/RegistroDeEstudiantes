@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Estilo implícito para etiquetas -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource TextoOscuro},
+                                    Dark={StaticResource TextoOscuroTema}}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0,6,0,4" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+    
+    <!-- Estilo implícito para campos de texto -->
+    <Style TargetType="Entry">
+        <Setter Property="TextColor"
+                Value="{AppThemeBinding Light={StaticResource TextoOscuro},
+                                        Dark={StaticResource TextoOscuroTema}}" />
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Light={StaticResource SuperficieClara},
+                                        Dark={StaticResource SuperficieOscura}}" />
+        <Setter Property="PlaceholderColor" Value="#8995A5" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0,6,0,8" />
+        <Setter Property="HeightRequest" Value="52" />
+
+        <!-- Resaltar el campo cuando recibe el foco -->
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor"
+                                    Value="{AppThemeBinding Light={StaticResource SuperficieClara},
+                                                            Dark={StaticResource SuperficieOscura}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Focused">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor"
+                                    Value="{AppThemeBinding Light=#E2EEFF, Dark=#30445C}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!-- Estilo implícito para selectores -->
+    <Style TargetType="Picker">
+        <Setter Property="TextColor"
+                Value="{AppThemeBinding Light={StaticResource TextoOscuro},
+                                        Dark={StaticResource TextoOscuroTema}}" />
+        <Setter Property="TitleColor" Value="#8995A5" />
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Light={StaticResource SuperficieClara},
+                                        Dark={StaticResource SuperficieOscura}}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Margin" Value="0,6,0,8" />
+        <Setter Property="HeightRequest" Value="52" />
+    </Style>
+
+    <!-- Estilo explícito para el botón principal -->
+    <Style x:Key="BotonPrimario" TargetType="Button">
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Light={StaticResource AzulPrincipal},
+                                        Dark={StaticResource AzulOscuro}}" />
+        <Setter Property="TextColor" Value="{StaticResource TextoClaro}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="HeightRequest" Value="52" />
+        <Setter Property="Padding" Value="16,10" />
+    </Style>
+
+    <!-- Estilo explícito para el botón secundario, basado en el primario -->
+    <Style x:Key="BotonSecundario"
+           TargetType="Button"
+           BasedOn="{StaticResource BotonPrimario}">
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Light=#64748B, Dark=#465568}" />
+    </Style>
+
+</ResourceDictionary>
