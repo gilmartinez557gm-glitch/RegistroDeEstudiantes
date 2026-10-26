@@ -8,7 +8,7 @@
 
 ![Formulario de RegistroDeEstudiantes en modo oscuro](Capturas/modo-oscuro.png)
 
-## 🎨 Paleta de colores
+## Paleta de colores
 
 La aplicación RegistroDeEstudiantes utiliza una paleta de colores diseñada para ofrecer una interfaz clara, profesional y adaptable a los modos claro y oscuro.
 
