@@ -3,9 +3,13 @@ Paleta de colores
 La aplicación RegistroDeEstudiantes utiliza una paleta de colores diseñada para ofrecer una interfaz clara, profesional y adaptable a los temas claro y oscuro.
 
 Azul principal: `#2864A0` Botones principales y elementos destacados
+
 Azul oscuro: `#17365D` Botones y elementos del tema oscuro
+
 Verde éxito: `#23845D` Indicadores y controles de interacción
+
 Fondo claro: `#F2F6FC` Fondo general en modo claro
+
 Superficie clara: `#FFFFFF` Campos y superficies en modo claro
 Texto oscuro: `#172B4D` Texto en modo claro
 Texto claro: `#FFFFFF` Texto sobre botones oscuros
