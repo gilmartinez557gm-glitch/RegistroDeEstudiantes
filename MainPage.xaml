@@ -14,7 +14,7 @@
             Spacing="12">
 
             <Label
-                Text="Registro de Estudiantes"
+                Text="REGISTRO DE ESTUDIANTE"
                 FontSize="28"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
@@ -28,7 +28,7 @@
                 HorizontalOptions="End"
                 VerticalOptions="Center">
 
-            <Label Text="REGISTRO  de ESTUDIANTES"
+            <Label Text="REGISTRO  DE ESTUDIANTES"
                    FontSize="28"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
